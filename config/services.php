@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    'google_books' => [
+        'key' => env('GOOGLE_BOOKS_API_KEY'),
+        'base_url' => env('GOOGLE_BOOKS_BASE_URL', 'https://www.googleapis.com/books/v1'),
+        'timeout' => 8,              // secondes
+        'retry_sleep' => 250,        // millisecondes entre deux tentatives
+        'cache_ttl' => 3600,         // recherches : 1 heure
+        'detail_cache_ttl' => 86400, // détails d'un livre : 24 heures
+        'per_minute' => 30,
+        'per_day' => (int) env('GOOGLE_BOOKS_DAILY_LIMIT', 900),
+    ],
+
 ];
