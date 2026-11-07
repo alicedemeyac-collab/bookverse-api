@@ -43,3 +43,108 @@ Accept: application/json
 ### Détail d'un auteur
 GET {{baseUrl}}/authors/1
 Accept: application/json
+
+
+### Auteur : attendu 2 (Le Seigneur des anneaux, Le Hobbit)
+GET {{baseUrl}}/books/search?q=tolkien
+Accept: application/json
+
+### Plusieurs mots (auteur + titre) : attendu 1 (Le Hobbit)
+GET {{baseUrl}}/books/search?q=tolkien hobbit
+Accept: application/json
+
+### Sans accents : attendu 1 (Millénium 1)
+GET {{baseUrl}}/books/search?q=millenium
+Accept: application/json
+
+### Nom de genre : attendu 5 (Horreur)
+GET {{baseUrl}}/books/search?q=horreur
+Accept: application/json
+
+### ISBN avec tirets : attendu 1 (Dune)
+GET {{baseUrl}}/books/search?q=979-0-000000-00-1
+Accept: application/json
+
+### Exemple de l'énoncé : attendu 1 (Le Prince cruel)
+GET {{baseUrl}}/books/search?genre=fantasy&year_min=2016&language=fr&pages_max=499
+Accept: application/json
+
+### Genre + sous-genre : attendu 2 (Fourth Wing, Un palais d'épines et de roses)
+GET {{baseUrl}}/books/search?genre=fantasy&subgenre=romantasy
+Accept: application/json
+
+### Sous-genre seul : attendu 2 (1984, Le Meilleur des mondes)
+GET {{baseUrl}}/books/search?subgenre=dystopie
+Accept: application/json
+
+### Texte + filtre : attendu 2 (Shining, Ça)
+GET {{baseUrl}}/books/search?q=king&pages_min=400
+Accept: application/json
+
+### Langue : attendu 4
+GET {{baseUrl}}/books/search?language=en
+Accept: application/json
+
+### Éditeur : attendu 3 (Shining, Ça, Misery)
+GET {{baseUrl}}/books/search?publisher=albin
+Accept: application/json
+
+### Éditeur partiel : attendu 4 (Gallimard et Gallimard Jeunesse)
+GET {{baseUrl}}/books/search?publisher=gallimard
+Accept: application/json
+
+### Années 1990 : attendu 2 (Harry Potter, Le Trône de fer)
+GET {{baseUrl}}/books/search?year_min=1990&year_max=1999
+Accept: application/json
+
+### Pages : attendu 2 (Le Seigneur des anneaux, Ça) ; les livres sans pages sont exclus
+GET {{baseUrl}}/books/search?pages_min=1000
+Accept: application/json
+
+### Tri pages décroissantes : Seigneur des anneaux, Ça, Le Trône de fer
+GET {{baseUrl}}/books/search?sort=pages_desc&per_page=3
+Accept: application/json
+
+### Tri récent : Fourth Wing, Projet Dernière Chance, La Patiente silencieuse
+GET {{baseUrl}}/books/search?sort=newest&per_page=3
+Accept: application/json
+
+### Tri récent, tous les livres : Corrupt et Haunting Adeline (sans date) en dernier
+GET {{baseUrl}}/books/search?sort=newest&per_page=50
+Accept: application/json
+
+### Pagination avec filtre : liens contenant genre=fantasy
+GET {{baseUrl}}/books/search?genre=fantasy&per_page=3&page=2
+Accept: application/json
+
+### Aucun résultat : attendu 200, data vide, meta.total = 0
+GET {{baseUrl}}/books/search?q=zzzzzz
+Accept: application/json
+
+### Caractères spéciaux %% pris littéralement : attendu 0 résultat
+GET {{baseUrl}}/books/search?q=%25%25
+Accept: application/json
+
+### Tentative d'injection SQL : attendu 0 résultat, aucune erreur
+GET {{baseUrl}}/books/search?q=%27%20OR%201%3D1%20--
+Accept: application/json
+
+### Texte trop court : attendu 422
+GET {{baseUrl}}/books/search?q=a
+Accept: application/json
+
+### Années incohérentes : attendu 422
+GET {{baseUrl}}/books/search?year_min=2020&year_max=2010
+Accept: application/json
+
+### Tri inconnu : attendu 422
+GET {{baseUrl}}/books/search?sort=hack
+Accept: application/json
+
+### Langue invalide : attendu 422
+GET {{baseUrl}}/books/search?language=fra
+Accept: application/json
+
+### Options des filtres : langues ["en","fr"], années 1813 à 2023, pages max 1216
+GET {{baseUrl}}/books/filters
+Accept: application/json

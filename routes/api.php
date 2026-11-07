@@ -25,6 +25,8 @@ Route::prefix('v1')->middleware('throttle:120,1')->group(function () {
 
     // Catalogue (public)
     Route::get('/books', [BookController::class, 'index']);
+    Route::get('/books/search', [BookController::class, 'search']);
+    Route::get('/books/filters', [BookController::class, 'filters']);
     Route::get('/books/{book}', [BookController::class, 'show'])->whereNumber('book');
     Route::get('/books/{book}/authors', [BookController::class, 'authors'])->whereNumber('book');
 
