@@ -1,0 +1,45 @@
+@baseUrl = http://127.0.0.1:8000/api/v1
+
+### Genres
+GET {{baseUrl}}/genres
+Accept: application/json
+
+### Détail du genre Fantasy
+GET {{baseUrl}}/genres/fantasy
+Accept: application/json
+
+### Livres du genre Fantasy
+GET {{baseUrl}}/genres/fantasy/books
+Accept: application/json
+
+### Liste des livres
+GET {{baseUrl}}/books
+Accept: application/json
+
+### Page 2, 5 livres par page
+GET {{baseUrl}}/books?per_page=5&page=2
+Accept: application/json
+
+### per_page invalide, attendu : 422
+GET {{baseUrl}}/books?per_page=500
+Accept: application/json
+
+### Détail d'un livre
+GET {{baseUrl}}/books/1
+Accept: application/json
+
+### Livre inexistant, attendu : 404
+GET {{baseUrl}}/books/99999
+Accept: application/json
+
+### Auteurs d'un livre
+GET {{baseUrl}}/books/1/authors
+Accept: application/json
+
+### Liste des auteurs
+GET {{baseUrl}}/authors
+Accept: application/json
+
+### Détail d'un auteur
+GET {{baseUrl}}/authors/1
+Accept: application/json
